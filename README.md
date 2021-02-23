@@ -1,4 +1,4 @@
-# Project: Titanic Survival Prediction
+# Titanic Survival Prediction using Azure AutoML
 
 ## Dataset
 "Titanic Dataset" is already a classical dataset to learn Machine Learning.
