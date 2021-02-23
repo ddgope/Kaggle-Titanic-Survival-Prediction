@@ -1,19 +1,7 @@
 # Project: Titanic Survival Prediction
 
-In this project we are going to train the same dataset but using two different approaches:
-
-- Approach No. 1 will be AutoML API from Azure 
-- Approach No. 2 will be HyperDrive API (also from Azure) 
-
-For both approaches we will retrieve the best model and compare the best models among them. The winner of this comparison will be registered and deployed. 
-Finally and after the deployement has taken place we are going to test the best model end point by sending a request.
-
-The chart below should visualize the above explanation:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/Diagram.PNG)
-
 ## Dataset
-As you probably have guessed from the project title we will be working with the "Titanic Dataset" which is already a classical dataset to learn Machine Learning.
+"Titanic Dataset" is already a classical dataset to learn Machine Learning.
 
 ### Overview
 This data is an open source set which is available online through the "OpenML" Organization ( https://www.openml.org/ ) 
@@ -24,9 +12,7 @@ The main task for this project will be to build a predictive model that answers 
 To answer the above stated question we are going to give the model different input variables such as age, type of cabin the passanger had, etc.
 
 More specifically, we are going to concentrate on the following features:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/features.PNG)
-
+ 
 The above features will be pre-processed to facilitate computation during training.If you are interested in this step you can take a look to the following files:
 
 - pre-process.py:
@@ -42,10 +28,10 @@ In addition to the clean data function the script applies the following steps:
 If you would like to take a look to the scripts here you will find the link to them:
 
 - Pre-process file: \
-https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/starter_file/pre_preprocess.py
+https://github.com/ddgope/Titanic-Survival-Prediction/blob/master/pre_preprocess.py
 
 - Train file: \
-https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/starter_file/train.py
+https://github.com/ddgope/Titanic-Survival-Prediction/blob/master/prepared.csv
 
 
 
@@ -55,12 +41,10 @@ During the project two differents ways were implemented in order access the data
 For the experiment using AutoML we just simply imported it to the notebook by using the TabularDatasetFactory class and the method ".fromDelimetedFiles"
 Afterwards the dataset will be registered
 
-The following pictures displays the steps mentioneds above:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/dataset_AutoML.PNG)
+The following pictures displays the steps mentioneds above: 
 
 
-For the experiment using the HyperDrive we did the same as with the AutoMl; the only difference is that it was performend within the "train.py" script (rows 31-33 from script: https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/starter_file/train.py )
+For the experiment using the HyperDrive we did the same as with the AutoMl; the only difference is that it was performend within the "train.py" script (rows 31-33 from script: https://github.com/ddgope/Titanic-Survival-Prediction/blob/master/train.py )
 
 
 ## Automated ML
@@ -110,7 +94,7 @@ Plese for more details checked on the documentation,it is definetely worth it:
 https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-auto-features#featurization \
 In our project I decided to pre-process the data in advance to reduce computation and be able to save some ressources.\
 The picture below shows the data guardrail states that were proved during trainig of the dataset. As you can see and due to the pre-process mentioned above all the states were flagged as "Passed" indicating that no data problems were detected, thus no additional action was required either from side nor from the automatic featurization process. \
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/Data_Guardrails.PNG)
+ 
 
 - debug_log: \
 Refers to the name of log file to write debug information to.If not specified, 'automl.log' is used.
@@ -119,30 +103,24 @@ Refers to the name of log file to write debug information to.If not specified, '
 Kwargs allowing us to pass keyworded variable length of arguments to the configuaration. In this case the AutoML Settings.
 
 In the below picture you could see the code snippet which captures the AutoML Settings and Configuration:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/AutoML_Config.PNG)
-
+ 
 
 ### Results
 After having submitted the experiment run (based on the AutoML Configuration). This is what happened:
 
 1) We were able to see the run details of the experiment as shown above:
 
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/0-Experiment_Running_AutoML.PNG)
-
+ 
 2) By using the RunDetails widget we were able to find out that the experiment was done.
 
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/1-Run_Details_AutoML_Finished.PNG)
-
+ 
 3) By checking the experiment results we were able to see the a list containing all the child runs as well as the list of all models tested:
 
 Child Runs:
 
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/2-Run_Details_AutoML_Various_Exp.PNG)
-
+ 
 List of all Models:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/3-List_of_All_Model_AutoML.PNG)
+ 
 
 4) Out of the list of all models we were able to see which one was the one presenting the best results. From the picture above you can see that the Run 51 gave the best model with the following metrics: 
 
@@ -152,81 +130,15 @@ AUC Micro: 0.88014
 
 Below you can see the picture confirming the above metrics:
 
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/4-Best_Model_AutoML_Run_ID.PNG)
 
 5) Best Model:
 The results of the AutoML gave as a winner a "VotingEnsemble" model with an accuracy of 0.82521.The voting ensemble method combines conceptually different machine learning classifiers and uses a majority vote or the average predicted probabilities (soft vote) to predict the class labels. Such a classifier can be useful for a set of equally well performing model in order to balance out their individual weaknesses. \
 By retrieving the properties and/or outputs of the model we are able to see the model parameters as well:
 
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/best_model_params.PNG)
-
-6) Room for improvement: 
-As we saw it earlier the data input given was very solid pre-processed. You can see this as well on the results of the data guardrails where every staged was "passed".
-Thus there is my opinion not much additional if something at all to do to improve the model. I guess you could argue that you could test some of the "blocked" models to see if the output would be better. Nevertheless I will remain with the opionion of sticking to the selected "VotingEnsemble" method, then in real life or real projects you do not have the time to concentrate in "too depth" in improving for let's say 0.01 points. 
-
-## Hyperparameter Tuning
-For the Hyperparameter Tuning we will have a "go" with a Logistic regression since this is a simple and very efficient method for binary and linear classification problems. In addition to that the model is very easy to realize and achieves very good performance with linearly separable classes. Due to this it has become an extensively employed algorithm for classification problems within the industry and scientific analysis projects.
-
-With respect to the paremeters that will be used for the Hyperparameter Tuning experiment we are going to concentrate on the following:
-
-- Inverse of Regularization Strength ('--C'):
-We will use this parameter to train the model with the goal of having a better generalization of the model.This would lead to better performance on unseen data, by preventing the algorithm from overfitting the training dataset.Concerning the values it is important to know that smaller values would specify stronger regularization.
-
-- Maximum Number of Iterations to solve to converge ('max_iter'):
-Refers to the maximum number of iterations taken for the solvers to converge.
-
-In the picture below we can see the HyperDrive Configuration which has included the above mentioned parameters:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/9-HyperDrive_Configuration.PNG)
-
-In addition to the Logistic Regression parameters notice please the additional parameters that were passed to the HyperDrive Configuration. 
-
-- Early Stopping Policy:\
-This policy allows to automatically terminate poorly performing runs with an early termination policy. The result of this early termination is to improve computational efficiency. In this specif case the setup of the policy was the following: Bandit Policy which based on slack factor/slack amount and evaluation interval terminates runs where the primary metric is not within the specified slack factor/slack amount compared to the best performing run.
-
-- cpu_cluster:\
-Here we used the already existing cpu cluster that we created when performing the AutoMl Experiment.
-
-- primary_metric: \
-Since we want to compare the performance of both experiments (AutoML & HyperParameterTuning) the primary metric remains the same (accuracy) and the goal is to maximize the primary metric (PrimaryMetricGoal.MAXIMIZE).
-
-- max_total_runs & max_concurrent_runs :\
-These would be the same as the values that we used to perform the AutoML Experiment.
-
-- estimator: \
-We are going to use the estimator for training in Scikit-learn experiments.
-
-### Results
-After having submitted the experiment run (based on the hyperdrive_config ).This is what happened:
-
-1) We were able to see the run details of the experiment as shown above:
-
-Experiment Name:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/8-HyperDrive_Experiment.PNG)
-
-Run Details:
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/10-HyperDrive_Experiment_Run.PNG)
-
-As a side note I have added an additional picture where you can see the registration of both experiments (AutoML & HyperDrive) that took place:
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/11-Visualizing_Both_Experiments.PNG)
-
-
-2) After the experiment was finished we were able to take a look to the best model:
-
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/12-HyperDrive_Best_Run.PNG)
-
-3) Improvement room: \
-The Logistic Regression Parameters concentrated only on the inverse of regularization strength ('--C') and the maximum number of iterations to solve to converge ('max_iter'). Nevetheless it would interesting to add additional parameters to observe how the model performs. Some proposals could be the type of penalty, different class weights or different type of solver.
-
-4) Deciding on which model to deployed: \
-Due to the fact that the metrics were higher on the model retrieved from the AutoML instead of the model from the Hyperparameter tuning we decided to deploy the AutoML model
-
 ## Model Deployment
 For Model Deployment you can see below the steps that we took:
 
-1) Registering the model: \
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/5-Registering_Best_Model_AutoML.PNG)
+1) Registering the model:  
 
 2) Define inference configuration: \
 Due to the fact that we did not deploy using the GUI is important to define the environment used to run the model \
@@ -237,27 +149,15 @@ The inference configuration references the following entities, which are used to
 - An Azure Machine Learning environment. An environment defines the software dependencies needed to run the model and entry script.
 
 If you whish to take a look to the score.py file you can access to it via this link:
-(https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/starter_file/score.py)
+(https://github.com/ddgope/Titanic-Survival-Prediction/blob/master/score.py)
+
 
 
 3) Deploying the model (and inference config): \
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/Deploying_Model.PNG)
+
 
 4) Deployment Verification: \
 Verifiying URI, Endpoint and Application Insights:
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/6-Best_Model_AutoML_Deployed.PNG)
 
 5) Querying the endpoint with a sample input
-![alt text](https://github.com/MarceloLandaverde/udacity-capstone-project/blob/master/Pictures/7-Requests_Best_Model_AutoML_Deployed.PNG)
-
-
-## Screen Recording
-Please find below a short video link focusing on the following points:
-
-- A working model
-- Demo of the deployed  model
-- Demo of a sample request sent to the endpoint and its response
-
-https://www.youtube.com/watch?hd=1&v=Njvp20OCG84&feature=youtu.be
-
 
