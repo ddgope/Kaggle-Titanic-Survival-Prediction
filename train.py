@@ -134,22 +134,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-#----------------------------------------------------------------------------
-#Next Steps:
-# - Import the above created functions and afterwards:    
-# - cast numerical variables as floats
-# - drop unnecessary variables
-# - Extract only the letter (and drop the number) from the variable Cabin
-# - Fill in Missing data in numerical variables:
-    #- Add a binary missing indicator
-    #- Fill NA in original variable with the median
-# - Divide the variables in numerical and categorical
-# - Replace Missing data in categorical variables with the string Missing
-# - Remove rare labels in categorical variables
-# - Encode the categorical variables
-# - Scale the variables
-# - Split Data in Train/Test
-# - Train the Logistic Regression model
-# !pip install -U --upgrade-strategy eager azureml-sdk[automl,widgets,notebooks]==1.21.0
-
