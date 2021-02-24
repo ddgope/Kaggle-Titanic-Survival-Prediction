@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Jan 24 13:57:51 2021
-
-@author: PC-Fujitsu
-"""
 
 # Import the libraries needed:
 import pandas as pd
@@ -17,12 +12,12 @@ import re
 def load_data(df_path):
     # Function loads data for training
     return pd.read_csv(df_path)
-#----------------------------------------------------------------------------
+
 #func 2:
 def replace_question_marks(df):
     #Replace questions marks with nan
     return df.replace('?',np.nan)
-#----------------------------------------------------------------------------
+
 #func 3:
 def get_first_cabin(row):
     """
@@ -32,7 +27,7 @@ def get_first_cabin(row):
         return row.split()[0]
     except:
         return np.nan
-#----------------------------------------------------------------------------
+
 #func 4:
 def get_title(passenger):
     """
