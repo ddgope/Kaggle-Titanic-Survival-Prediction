@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#Import needed libraries:
+#Import libraries:
 import pre_preprocess as pp
 import numpy as np
 import pandas as pd
