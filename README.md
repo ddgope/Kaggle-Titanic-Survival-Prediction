@@ -102,39 +102,6 @@ Refers to the name of log file to write debug information to.If not specified, '
 - automl_settings: \
 Kwargs allowing us to pass keyworded variable length of arguments to the configuaration. In this case the AutoML Settings.
 
-In the below picture you could see the code snippet which captures the AutoML Settings and Configuration:
- 
-
-### Results
-After having submitted the experiment run (based on the AutoML Configuration). This is what happened:
-
-1) We were able to see the run details of the experiment as shown above:
-
- 
-2) By using the RunDetails widget we were able to find out that the experiment was done.
-
- 
-3) By checking the experiment results we were able to see the a list containing all the child runs as well as the list of all models tested:
-
-Child Runs:
-
- 
-List of all Models:
- 
-
-4) Out of the list of all models we were able to see which one was the one presenting the best results. From the picture above you can see that the Run 51 gave the best model with the following metrics: 
-
-Accuracy:  0.82521 \
-AUC Macro: 0.86622 \
-AUC Micro: 0.88014 
-
-Below you can see the picture confirming the above metrics:
-
-
-5) Best Model:
-The results of the AutoML gave as a winner a "VotingEnsemble" model with an accuracy of 0.82521.The voting ensemble method combines conceptually different machine learning classifiers and uses a majority vote or the average predicted probabilities (soft vote) to predict the class labels. Such a classifier can be useful for a set of equally well performing model in order to balance out their individual weaknesses. \
-By retrieving the properties and/or outputs of the model we are able to see the model parameters as well:
-
 ## Model Deployment
 For Model Deployment you can see below the steps that we took:
 
@@ -152,9 +119,7 @@ If you whish to take a look to the score.py file you can access to it via this l
 (https://github.com/ddgope/Titanic-Survival-Prediction/blob/master/score.py)
 
 
-
 3) Deploying the model (and inference config): \
-
 
 4) Deployment Verification: \
 Verifiying URI, Endpoint and Application Insights:
